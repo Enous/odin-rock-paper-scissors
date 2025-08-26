@@ -1,4 +1,7 @@
-const ROCK_PAPER_SCISSORS = ["Rock", "Paper", "Scissors"];
+const ROCK_PAPER_SCISSORS = ["rock", "paper", "scissors"];
+
+let humanScore = 0;
+let computerScore = 0;
 
 
 function getComputerChoice()
@@ -6,16 +9,18 @@ function getComputerChoice()
     return ROCK_PAPER_SCISSORS[Math.floor(Math.random() * 3)];
 }
 
+
 function getHumanChoice()
 {
+    let playerChoice;
+    
     while (true)
     {
-        let playerChoice = prompt("Player Choice");
-        let playerChoiceLowercase = playerChoice.toLocaleLowerCase();
+        playerChoice = prompt("Your choice:").toLowerCase();
 
-        if (playerChoiceLowercase === "rock" ||
-            playerChoiceLowercase === "paper" ||
-            playerChoiceLowercase === "scissors")
+        if (playerChoice === "rock" ||
+            playerChoice === "paper" ||
+            playerChoice === "scissors")
             return playerChoice;
         else
             alert("Invalid input. Please try again");
@@ -23,4 +28,55 @@ function getHumanChoice()
 }
 
 
-console.log(getHumanChoice());
+function playRound(humanChoice, computerChoice)
+{
+    let winState;
+
+    if (humanChoice === computerChoice)
+        winState = 0;
+    else if (humanChoice === "rock")
+    {
+        if (computerChoice === "scissors")
+            winState = 1;
+        else
+            winState = -1;
+    }
+    else if (humanChoice === "paper")
+    {
+        if (computerChoice === "rock")
+            winState = 1;
+        else
+            winState = -1;
+    }
+    else if (humanChoice === "scissors")
+    {
+        if (computerChoice === "paper")
+            winState = 1;
+        else
+            winState = -1;
+    }
+
+    let resultMessage;
+
+    if (winState == 0)
+        resultMessage = "It's a draw!";
+    else if (winState == 1)
+    {
+        resultMessage = `You won! ` +
+                        `${humanChoice[0].toUpperCase() + humanChoice.slice(1)} ` +
+                        `beats ${computerChoice}`;
+        humanScore++;
+    }
+    else if (winState == -1)
+    {
+        resultMessage = `You lost! ` +
+                        `${computerChoice[0].toUpperCase() + computerChoice.slice(1)} ` +
+                        `beats ${humanChoice}`;
+        computerScore++;
+    }
+
+    alert(resultMessage);
+}
+
+
+playRound(getHumanChoice(), getComputerChoice());
