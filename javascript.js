@@ -1,7 +1,7 @@
 const ROCK_PAPER_SCISSORS = ["rock", "paper", "scissors"];
 
-let humanScore = 0;
-let computerScore = 0;
+let humanScore;
+let computerScore;
 
 
 function getComputerChoice()
@@ -79,4 +79,21 @@ function playRound(humanChoice, computerChoice)
 }
 
 
-playRound(getHumanChoice(), getComputerChoice());
+function playGame()
+{
+    humanScore = 0;
+    computerScore = 0;
+
+    for (let i = 0; i < 5; i++)
+        playRound(getHumanChoice(), getComputerChoice());
+
+    if (humanScore > computerScore)
+        alert(`Victory! Final score: ${humanScore} — ${computerScore}`);
+    else if (humanScore == computerScore)
+        alert(`Stalemate! Final score: ${humanScore} — ${computerScore}`);
+    else
+        alert(`You lost! Final score: ${humanScore} — ${computerScore}`);
+}
+
+
+playGame();
